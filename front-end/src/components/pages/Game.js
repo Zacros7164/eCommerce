@@ -14,6 +14,13 @@ class Game extends Component {
         }
     }
 
+    componentWillReceiveProps(newProps){
+        if(newProps.cart.length !== this.props.cart.length){
+            // user just changed their cart... redirect to '/'
+            this.props.history.push('/?added=item')
+        }
+    }
+
     componentDidMount(){
         const gameId = this.props.match.params.id
         console.log(gameId)
@@ -82,7 +89,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Game);
 
 function mapStateToProps(state){
     return{
-        auth: state.auth
+        auth: state.auth,
+        cart: state.cart
     }
 }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import loginTab from '../../misc/openWindow';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import getCart from '../../actions/getCartAction';
 
 class LoginNavBar extends Component {
     constructor() {
@@ -28,6 +30,20 @@ class LoginNavBar extends Component {
         loginTab('http://localhost:3000/auth/github')
     }
 
+    // componentWillReceiveProps(newProps){
+    //     console.log('newProps = ' + newProps.auth.token)
+
+    //     this.props.getCart(newProps.auth.token)
+    // }
+
+    // componentDidMount(){
+    //     console.log("component mounted")
+    //     console.log(this.props.auth.token)
+    //     if(this.props.auth.token == undefined){
+    //         console.log("token not undefined")
+    //         this.props.getCart(this.props.auth.token)
+    //     }
+    // }
 
 
     render() {
@@ -47,7 +63,7 @@ class LoginNavBar extends Component {
                 <Link to="/"><div className="left valign-wrapper">WELCOME TO ZAPP GAMES</div></Link>
                 <div className="right">
                     {rightNavBar}
-                    <Link to="/cart">MY CART 0 ITEM - $0.00</Link>
+                    <span><Link to="/cart"><i className="material-icons">shopping_cart</i> My Cart</Link> | {this.props.cart.items} items - ${this.props.cart.total}</span>
                 </div>
             </div>
         )
@@ -57,9 +73,16 @@ class LoginNavBar extends Component {
 function mapStateToProps(state){
     return{
         auth: state.auth, 
+        cart: state.cart
     }
 }
 
-export default connect(mapStateToProps)(LoginNavBar);
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        getCart: getCart
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginNavBar);
 
 
