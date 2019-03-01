@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import GetCart from '../actions/GetCart';
+import getCart from '../../actions/getCartAction';
 import { Link } from 'react-router-dom';
 import CartRow from '../utility/CartRow';
 import axios from 'axios';
@@ -50,7 +50,7 @@ class Cart extends Component{
 		console.log(this.props.auth);
 		if(this.props.auth.token === undefined){
 			// if the user has no token... they should not be here. Goodbye.
-			// this.props.history.push('/login')
+			this.props.history.push('/login')
 		}else{
 			// the user does have a token, go get their cart!
 			this.props.getCart(this.props.auth.token);
@@ -63,7 +63,7 @@ class Cart extends Component{
 			// if this return occurs, the render is DONE
 			return(
 				<div>
-					<h3>Your cart is empty! Get shopping or <Link to="/login">login</Link></h3>
+					<h3 className="text-white">Your cart is empty! Get shopping or <Link to="/login">login</Link></h3>
 				</div>
 			)
 		}else{
@@ -103,7 +103,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
 	return bindActionCreators({
-		getCart: GetCart
+		getCart: getCart
 	},dispatch)
 }
 

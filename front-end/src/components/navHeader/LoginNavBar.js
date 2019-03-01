@@ -39,8 +39,7 @@ class LoginNavBar extends Component {
             rightNavBar = <span> Welcome, {this.props.auth.userName}</span>
         }else{
             // user is not logged in
-            rightNavBar = <span><Link to='/login'>Sign in</Link> or <Link to='/register'>Register</Link>
-            <button type="button" onClick={this.githubAuth} className="btn play-button btn-github">Login with github</button></span>
+            rightNavBar = <span><Link to='/login'>Sign in</Link> or <Link to='/register'>Register</Link> | </span>
         }
         console.log(rightNavBar)
         return (
@@ -48,7 +47,7 @@ class LoginNavBar extends Component {
                 <Link to="/"><div className="left valign-wrapper">WELCOME TO ZAPP GAMES</div></Link>
                 <div className="right">
                     {rightNavBar}
-                    MY CART 0 ITEM - $0.00
+                    <Link to="/cart">MY CART 0 ITEM - $0.00</Link>
                 </div>
             </div>
         )
